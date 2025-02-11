@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TaskManager.View"
         xmlns:vm="clr-namespace:TaskManager.ViewModel.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="TaskManager | atxm" 
         
         MinHeight="400"
         MinWidth="700"
@@ -25,7 +25,12 @@
             <Setter Property="Margin" Value="5"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
-    
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        
     </Window.Resources>
     
     <Grid>
