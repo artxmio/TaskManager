@@ -41,13 +41,30 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <DataGrid 
             Grid.RowSpan="2"
             Grid.ColumnSpan="2"  
+            ItemsSource="{Binding Data}"
             Margin="10"
-            />
-        
+            AutoGenerateColumns="False"
+            
+            CanUserAddRows="False"
+            CanUserResizeColumns="False"
+            HorizontalScrollBarVisibility="Hidden"
+            
+            HorizontalContentAlignment="Center"
+            >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="0.2*"/>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="0.5*"/>
+                <DataGridTextColumn Binding="{Binding CountParticipants}" Header="Count Participants" Width="0.2*"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsComplete}" Header="Complete" Width="0.1*"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
         <GroupBox 
             Grid.Column="3"
             Grid.ColumnSpan="2"
