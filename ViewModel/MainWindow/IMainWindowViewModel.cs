@@ -5,5 +5,5 @@ namespace TaskManager.ViewModel.MainWindow;
 
 public interface IMainWindowViewModel
 {
-    ObservableCollection<IProject> Data { get; set; }
+    ObservableCollection<Project> Data { get; set; }
 }
