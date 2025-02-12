@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskManager.View.ModalWindows"
+        xmlns:vm="clr-namespace:TaskManager.ViewModel.CreateProjectViewModel" 
         mc:Ignorable="d"
         Title="CreateProjectWindow" Height="505" Width="400"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
+        d:DataContext="{d:DesignInstance vm:CreateProjectViewModel}"
         >
     <Grid>
         
@@ -34,6 +36,7 @@
             Margin="20,8,125,43" Grid.Row="1"/>
 
         <TextBox
+            Text="{Binding NewProject.Title}"
             VerticalAlignment="Center"
             FontSize="15"
             MaxLength="25"
@@ -49,7 +52,7 @@
             Grid.Row="2"/>     
 
         <TextBox
-            FontWeight="SemiBold"
+            Text="{Binding NewProject.Description}"
             FontSize="15"
             MaxLength="25"
             Margin="20,30,20,10"
@@ -59,19 +62,21 @@
         <TextBlock 
             Text="Count of participants:" 
             FontFamily="Outfit"
+            FontWeight="SemiBold"
             FontSize="15"
             Margin="20,8,117,43" 
             Grid.Row="3"/>
 
         <TextBox
+            Text="{Binding NewProject.CountParticipants}"
             VerticalAlignment="Center"
             FontSize="15"
             MaxLength="25"
             Grid.Row="3" Margin="20,30,20,10"
             />
 
-        <Button Content="OK" Grid.Row="3" Margin="20,80,200,-45"/>
-        <Button Content="Cancel" Grid.Row="3" Margin="210,80,10,-45"/>
+        <Button Command="{Binding CreateProjectCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="OK" Grid.Row="3" Margin="20,80,200,-45"/>
+        <Button Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="Cancel" Grid.Row="3" Margin="210,80,10,-45"/>
     
     </Grid>
 </Window>

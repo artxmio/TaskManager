@@ -19,7 +19,7 @@ public class MainWindowViewModel : IMainWindowViewModel
     public MainWindowViewModel()
     {
         Data = new ObservableCollection<Project>();
-        
+
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
         CreateProjectCommand = new RelayCommand.RelayCommand(o => CreateProject());
 
@@ -32,9 +32,18 @@ public class MainWindowViewModel : IMainWindowViewModel
 
     private void CreateProject()
     {
-        var createProjectWindow = new CreateProjectWindow();
+        var viewModel = new CreateProjectViewModel.CreateProjectViewModel();
+        var createProjectWindow = new CreateProjectWindow(viewModel);
 
         createProjectWindow.ShowDialog();
+
+        var dialogResult = viewModel.DialogResult;
+
+        if (dialogResult)
+        {
+            _context.Projects.Add(viewModel.NewProject);
+            _context.SaveChanges();
+        }
     }
 
     private void CloseWindow(Window window)
