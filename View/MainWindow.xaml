@@ -18,7 +18,7 @@
         >
 
     <Window.Resources>
-        
+
         <Style TargetType="Button">
             <Setter Property="Width" Value="Auto"/>
             <Setter Property="Height" Value="30"/>
@@ -30,11 +30,11 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
-        
+
     </Window.Resources>
-    
+
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -68,33 +68,44 @@
                 <DataGridTextColumn Binding="{Binding CountParticipants}" Header="Count Participants" Width="0.2*"/>
                 <DataGridCheckBoxColumn Binding="{Binding IsComplete}" Header="Complete" Width="0.1*"/>
             </DataGrid.Columns>
-            
+
         </DataGrid>
 
-        <GroupBox 
-            Grid.Column="3"
-            Grid.ColumnSpan="2"
-            Header="Buttons"
-            Margin="0 10 10 10"
-            MinWidth="100"
-            >
-            
-            <Grid VerticalAlignment="Top">
-                
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+        <Grid Grid.Column="3">
 
-                <Button Command="{Binding CreateProjectCommand}" Grid.Row="0" Content="Create Project"/>
-                <Button Command="{Binding DeleteProjectCommand}" Grid.Row="1" Content="Delete Project"/>
-                <Button Grid.Row="2" Content="Update Project"/>
-                <Button Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="3" Content="Exit"/>
-            </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
             
+        <GroupBox 
+            Header="Buttons"
+            Margin="0,10,10,10"
+            MinWidth="100"
+            Grid.RowSpan="2">
+
+            <StackPanel>
+
+                <Button Command="{Binding CreateProjectCommand}" Content="Create Project"/>
+                <Button Command="{Binding DeleteProjectCommand}" Content="Delete Project"/>
+                <Button Content="Update Project"/>
+                <Button Command="{Binding SaveChangesCommand}" IsEnabled="{Binding IsProjectChanged, Mode=TwoWay}" Content="Save Project"/>
+                <Button Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="3" Content="Exit"/>
+
+            </StackPanel>
+
         </GroupBox>
 
+        <TextBlock 
+            TextAlignment="Right"
+            FontSize="10"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            Margin="10,0,20,15"
+            Foreground="Red"
+            Text="{Binding UnsavedChangesMessage}" 
+            d:Text="example text"
+            Visibility="{Binding IsProjectChanged, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </Grid>
     </Grid>
 </Window>
