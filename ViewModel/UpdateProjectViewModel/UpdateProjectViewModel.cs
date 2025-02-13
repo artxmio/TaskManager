@@ -2,30 +2,33 @@
 using System.Windows.Input;
 using TaskManager.Model.ProjectModel;
 
-namespace TaskManager.ViewModel.CreateProjectViewModel;
+namespace TaskManager.ViewModel.UpdateProjectViewModel;
 
-public class CreateProjectViewModel
+public class UpdateProjectViewModel
 {
-    public Project NewProject { get; set; }
+    public Project UpdatedProject { get; set; }
     public bool DialogResult { get; set; }
-    public ICommand CreateProjectCommand { get; set; }
+    public ICommand UpdateProjectCommand { get; set; }
     public ICommand CloseWindowCommand { get; set; }
 
-    public CreateProjectViewModel()
+    public UpdateProjectViewModel(Project updatableProject)
     {
-        NewProject = new Project();
+        UpdatedProject = new Project();
+        UpdatedProject.Title = updatableProject.Title;
+        UpdatedProject.Description = updatableProject.Description;
+        UpdatedProject.CountParticipants = updatableProject.CountParticipants;
 
-        CreateProjectCommand = new RelayCommand.RelayCommand(o => CreateProject((Window)o));
+        UpdateProjectCommand = new RelayCommand.RelayCommand(o => UpdateProject((Window)o));
         CloseWindowCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
     }
 
-    private void CreateProject(Window window)
+    private void UpdateProject(Window window)
     {
-        if (Validate(NewProject.Title, NewProject.Description, NewProject.CountParticipants))
+        if (Validate(UpdatedProject.Title, UpdatedProject.Description, UpdatedProject.CountParticipants))
         {
             DialogResult = true;
 
-            MessageBox.Show("Project added");
+            MessageBox.Show("Project updated");
             window?.Close();
         }
     }

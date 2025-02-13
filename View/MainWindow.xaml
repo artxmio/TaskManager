@@ -72,11 +72,6 @@
         </DataGrid>
 
         <Grid Grid.Column="3">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
             
         <GroupBox 
             Header="Buttons"
@@ -88,7 +83,7 @@
 
                 <Button Command="{Binding CreateProjectCommand}" Content="Create Project"/>
                 <Button Command="{Binding DeleteProjectCommand}" Content="Delete Project"/>
-                <Button Content="Update Project"/>
+                    <Button Command="{Binding UpdateProjectCommand}" Content="Update Project"/>
                 <Button Command="{Binding SaveChangesCommand}" IsEnabled="{Binding IsProjectChanged, Mode=TwoWay}" Content="Save Project"/>
                 <Button Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="3" Content="Exit"/>
 

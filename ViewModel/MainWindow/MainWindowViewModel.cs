@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -46,6 +47,7 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     public ICommand CreateProjectCommand { get; set; }
     public ICommand DeleteProjectCommand { get; set; }
     public ICommand SaveChangesCommand { get; set; }
+    public ICommand UpdateProjectCommand { get; set; }
 
     public MainWindowViewModel()
     {
@@ -55,6 +57,7 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
         CreateProjectCommand = new RelayCommand.RelayCommand(o => CreateProject());
         DeleteProjectCommand = new RelayCommand.RelayCommand(o => DeleteProject());
+        UpdateProjectCommand = new RelayCommand.RelayCommand(o => UpdateProject());
         SaveChangesCommand = new RelayCommand.RelayCommand(o => SaveProjectChanges());
 
         if (_context is not null)
@@ -100,6 +103,34 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
             _context.SaveChanges();
             IsProjectChanged = false;
             MessageBox.Show("Changes was saved", "Success", MessageBoxButton.OK);
+        }
+    }
+
+    private void UpdateProject()
+    {
+        if (SelectedProject is not null)
+        {
+            var viewModel = new UpdateProjectViewModel.UpdateProjectViewModel(SelectedProject);
+            var window = new UpdateProjectWindow(viewModel);
+
+            window.ShowDialog();
+
+            var dialogResult = viewModel.DialogResult;
+
+            if (dialogResult)
+            {
+                SelectedProject.Title = viewModel.UpdatedProject.Title;
+                SelectedProject.Description = viewModel.UpdatedProject.Description;
+                SelectedProject.CountParticipants = viewModel.UpdatedProject.CountParticipants;
+
+                _context.Projects.Update(SelectedProject);
+                _context.SaveChanges();
+                IsProjectChanged = true;
+            }
+        }
+        else
+        {
+            MessageBox.Show("Please, select a project", "Error", MessageBoxButton.OK);
         }
     }
 

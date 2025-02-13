@@ -1,4 +1,6 @@
-﻿namespace TaskManager.Model.ProjectModel;
+﻿using System.CodeDom;
+
+namespace TaskManager.Model.ProjectModel;
 
 public class Project
 {
