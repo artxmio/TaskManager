@@ -15,6 +15,9 @@ public class MainWindowViewModel : IMainWindowViewModel
 
     public ICommand CloseCommand { get; set; }
     public ICommand CreateProjectCommand { get; set; }
+    public ICommand DeleteProjectCommand { get; set; }
+
+    public Project SelectedProject { get; set; }
 
     public MainWindowViewModel()
     {
@@ -22,6 +25,7 @@ public class MainWindowViewModel : IMainWindowViewModel
 
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
         CreateProjectCommand = new RelayCommand.RelayCommand(o => CreateProject());
+        DeleteProjectCommand = new RelayCommand.RelayCommand(o => DeleteProject());
 
         if (_context is not null)
         {
@@ -43,6 +47,18 @@ public class MainWindowViewModel : IMainWindowViewModel
         {
             _context.Projects.Add(viewModel.NewProject);
             _context.SaveChanges();
+        }
+    }
+
+    private void DeleteProject()
+    {
+        if (SelectedProject is not null)
+        {
+            _context.Projects.Remove(SelectedProject);
+        }
+        else
+        {
+            MessageBox.Show("Please, select a project", "Error", MessageBoxButton.OK);
         }
     }
 
