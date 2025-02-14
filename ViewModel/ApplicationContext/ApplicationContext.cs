@@ -9,7 +9,7 @@ public class ApplicationContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var sourcePathDB = "D:\\C#\\TaskManager\\database.db"; 
+        var sourcePathDB = "D:\\C#\\TaskManager\\database.db";
 
         optionsBuilder.UseSqlite($"Data Source={sourcePathDB}");
     }
