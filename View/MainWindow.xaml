@@ -63,8 +63,30 @@
             >
 
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" Width="0.2*"/>
-                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="0.5*"/>
+                <DataGridTemplateColumn Header="Title" Width="0.2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" MaxLength="25" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Description" Width="0.5*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Description}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding CountParticipants}" Header="Count Participants" Width="0.2*"/>
                 <DataGridCheckBoxColumn Binding="{Binding IsComplete}" Header="Complete" Width="0.1*"/>
             </DataGrid.Columns>
@@ -91,23 +113,23 @@
                             <StackPanel>
                             
                             <TextBlock Text="Manual" TextAlignment="Center" FontSize="20"/>
-                            
-                            <TextBlock TextWrapping="Wrap" Height="Auto" Width="295">
+
+                            <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                 <TextBlock.Text>
-                                    1. To add a new project, click the "Add project" button;
+                                    1. To add a new project, click the "Create project" button;
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBlock TextWrapping="Wrap" Height="Auto" Width="295">
+                            <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                 <TextBlock.Text>
                                     2. To delete a project, click the "Delete project" button;
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBlock TextWrapping="Wrap" Height="Auto" Width="295">
+                            <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                 <TextBlock.Text>
                                     3. To change project data, double-click on the required field and change the data;
                                 </TextBlock.Text>
                             </TextBlock>
-                            <TextBlock TextWrapping="Wrap" Height="Auto" Width="295">
+                            <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                 <TextBlock.Text>
                                     4. To save data, click the "Save project" button.
                                 </TextBlock.Text>

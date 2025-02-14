@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:TaskManager.ViewModel.CreateProjectViewModel" 
         mc:Ignorable="d"
         Title="CreateProjectWindow" Height="505" Width="400"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
         d:DataContext="{d:DesignInstance vm:CreateProjectViewModel}"
