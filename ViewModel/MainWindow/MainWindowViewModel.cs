@@ -9,6 +9,7 @@ using TaskManager.Model.UserModel;
 using TaskManager.View.ModalWindows;
 using TaskManager.ViewModel.Services.ProjectService;
 using TaskManager.ViewModel.Services.TaskService;
+using TaskManager.ViewModel.Services.UserService;
 
 namespace TaskManager.ViewModel.MainWindow;
 
@@ -17,10 +18,10 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     private readonly ApplicationContext.ApplicationContext _context = new ApplicationContext.ApplicationContext();
     private readonly ProjectService _projectService;
     private readonly TaskService _taskService;
+    private UserService _userService;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<User> UsersData { get; set; }
     public ProjectService ProjectService
     {
         get => _projectService;
@@ -29,7 +30,10 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     {
         get => _taskService;
     }
-
+    public UserService UserService
+    {
+        get => _userService;
+    }
     public ICommand CloseCommand { get; set; }
     public ICommand CreateProjectCommand { get; set; }
     public ICommand DeleteProjectCommand { get; set; }
@@ -37,20 +41,9 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 
     public MainWindowViewModel()
     {
-        UsersData = [];
-
-        if (_context is not null)
-        {
-            _context.Users.Load();
-            UsersData = _context.Users.Local.ToObservableCollection();
-        }
-        else if (_context is null)
-        {
-            throw new NullReferenceException();
-        }
-
         _projectService = new ProjectService(_context);
         _taskService = new TaskService(_context);
+        _userService = new UserService(_context);
 
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
         CreateProjectCommand = new RelayCommand.RelayCommand(o => _projectService.Add());
