@@ -1,6 +1,4 @@
-﻿using System.CodeDom;
-
-namespace TaskManager.Model.ProjectModel;
+﻿namespace TaskManager.Model.ProjectModel;
 
 public class Project
 {
@@ -9,4 +7,6 @@ public class Project
     public required string Description { get; set; }
     public int CountParticipants { get; set; }
     public bool IsComplete { get; set; }
+
+    public virtual ICollection<Task> Tasks { get ; set; }
 }
