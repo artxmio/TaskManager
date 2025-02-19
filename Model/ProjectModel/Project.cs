@@ -2,7 +2,7 @@
 
 namespace TaskManager.Model.ProjectModel;
 
-public class Project
+public class Project : IEntityModel
 {
     public int ProjectId { get; set; }
     public string Title { get; set; }

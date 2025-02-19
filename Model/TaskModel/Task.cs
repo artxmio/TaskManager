@@ -3,7 +3,7 @@ using TaskManager.Model.UserModel;
 
 namespace TaskManager.Model.TaskModel;
 
-public class Task
+public class Task : IEntityModel
 {
     public int TaskId { get; set; }
     public string Title { get; set; }

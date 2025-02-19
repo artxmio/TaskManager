@@ -1,41 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using TaskManager.Model;
 
 namespace TaskManager.ViewModel.Services.TaskService;
 
-public class TaskService
+public class TaskService : BaseService.BaseService
 {
-    private readonly ApplicationContext.ApplicationContext _context;
-
-    public ObservableCollection<Model.TaskModel.Task> TasksData { get; set; }
-
-    public Model.TaskModel.Task? SelectedTask { get; set; }
-
-    public TaskService(ApplicationContext.ApplicationContext context)
+    public TaskService(ApplicationContext.ApplicationContext context) : base(context)
     {
-        _context = context;
-        if (context is null)
-        {
-            TasksData = [];
-        }
-        else
+        if (context is not null)
         {
             _context.Tasks.Load();
-            TasksData = _context.Tasks.Local.ToObservableCollection();
+            Data = new ObservableCollection<IEntityModel>(context.Tasks.Local.Cast<IEntityModel>());
         }
     }
 
-    public void CreateTask()
+    public override void Add()
     {
         
     }
 
-    public void DeleteTask()
-    {
-        
-    }
-
-    public void SaveTaskChanges()
+    public override void Delete()
     {
         
     }

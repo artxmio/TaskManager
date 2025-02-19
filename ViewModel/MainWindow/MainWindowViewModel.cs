@@ -53,9 +53,9 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
         _taskService = new TaskService(_context);
 
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
-        CreateProjectCommand = new RelayCommand.RelayCommand(o => _projectService.CreateProject());
-        DeleteProjectCommand = new RelayCommand.RelayCommand(o => _projectService.DeleteProject());
-        SaveChangesCommand = new RelayCommand.RelayCommand(o => _projectService.SaveProjectChanges());
+        CreateProjectCommand = new RelayCommand.RelayCommand(o => _projectService.Add());
+        DeleteProjectCommand = new RelayCommand.RelayCommand(o => _projectService.Delete());
+        SaveChangesCommand = new RelayCommand.RelayCommand(o => _projectService.Save());
     }
 
     private static void CloseWindow(Window window)

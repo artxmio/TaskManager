@@ -1,34 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Windows;
+using TaskManager.Model;
 using TaskManager.Model.ProjectModel;
 using TaskManager.View.ModalWindows;
 
 namespace TaskManager.ViewModel.Services.ProjectService;
 
-public class ProjectService
+public class ProjectService : BaseService.BaseService
 {
-    private readonly ApplicationContext.ApplicationContext _context;
-
-    public ObservableCollection<Project> ProjectsData { get; set; }
-
-    public Project? SelectedProject { get; set; }
-
-    public ProjectService(ApplicationContext.ApplicationContext context)
+    public ProjectService(ApplicationContext.ApplicationContext context) : base(context)
     {
-        _context = context;
-        if (context is null)
-        {
-            ProjectsData = [];
-        }
-        else
+        if (context is not null)
         {
             _context.Projects.Load();
-            ProjectsData = _context.Projects.Local.ToObservableCollection();
+            Data = new ObservableCollection<IEntityModel>(context.Projects.Local.Cast<IEntityModel>());
         }
+
+        Selected = new Project();
     }
 
-    public void CreateProject()
+    public override void Add()
     {
         var viewModel = new CreateProjectViewModel.CreateProjectViewModel();
         var createProjectWindow = new CreateProjectWindow(viewModel);
@@ -43,21 +35,15 @@ public class ProjectService
         }
     }
 
-    public void DeleteProject()
+    public override void Delete()
     {
-        if (SelectedProject is not null)
+        if (Selected is not null)
         {
-            _context.Projects.Remove(SelectedProject);
+            _context.Projects.Remove((Project)Selected);
         }
         else
         {
             MessageBox.Show("Please, select a project", "Error", MessageBoxButton.OK);
         }
-    }
-
-    public void SaveProjectChanges()
-    {
-        _context.SaveChanges();
-        MessageBox.Show("Changes was saved", "Success", MessageBoxButton.OK);
     }
 }

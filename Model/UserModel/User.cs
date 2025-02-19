@@ -2,7 +2,7 @@
 
 namespace TaskManager.Model.UserModel;
 
-public class User
+public class User : IEntityModel
 {
     public int UserId { get; set; }
     public string Login { get; set; }

@@ -54,8 +54,8 @@
                     <DataGrid 
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"  
-                        SelectedItem="{Binding ProjectService.SelectedProject}"
-                        ItemsSource="{Binding ProjectService.ProjectsData}"
+                        SelectedItem="{Binding ProjectService.Selected}"
+                        ItemsSource="{Binding ProjectService.Data}"
                         Margin="10"
                         AutoGenerateColumns="False"
     
@@ -169,8 +169,8 @@
                     <DataGrid 
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"  
-                        SelectedItem="{Binding TaskService.SelectedTask}"
-                        ItemsSource="{Binding TaskService.TasksData}"
+                        SelectedItem="{Binding TaskService.Selected}"
+                        ItemsSource="{Binding TaskService.Data}"
                         Margin="10"
                         AutoGenerateColumns="False"
     
