@@ -169,8 +169,8 @@
                     <DataGrid 
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"  
-                        SelectedItem="{Binding ProjectService.SelectedProject}"
-                        ItemsSource="{Binding ProjectService.ProjectsData}"
+                        SelectedItem="{Binding TaskService.SelectedTask}"
+                        ItemsSource="{Binding TaskService.TasksData}"
                         Margin="10"
                         AutoGenerateColumns="False"
     
@@ -198,12 +198,12 @@
                             <DataGridTemplateColumn Header="ProjectID" Width="0.5*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Description}" />
+                                        <TextBlock Text="{Binding Project.Title}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
+                                        <TextBox Text="{Binding Project.Title, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
@@ -211,12 +211,12 @@
                             <DataGridTemplateColumn Header="AssigneeUserID" Width="0.5*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Description}" />
+                                        <TextBlock Text="{Binding User.Login}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
+                                        <TextBox Text="{Binding User.Login, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
@@ -225,20 +225,20 @@
                     </DataGrid>
 
                     <GroupBox 
-        Grid.Column="3"
-        Header="Buttons"
-        Margin="0,10,10,10"
-        MinWidth="100"
-        Grid.RowSpan="2"
-        Grid.ColumnSpan="2">
+                        Grid.Column="3"
+                        Header="Buttons"
+                        Margin="0,10,10,10"
+                        MinWidth="100"
+                        Grid.RowSpan="2"
+                        Grid.ColumnSpan="2">
 
                         <Grid>
 
                             <StackPanel>
 
-                                <Button Command="{Binding CreateProjectCommand}" Content="Create Project"/>
-                                <Button Command="{Binding DeleteProjectCommand}" Content="Delete Project"/>
-                                <Button Command="{Binding SaveChangesCommand}" Content="Save Project"/>
+                                <Button Command="{Binding CreateProjectCommand}" Content="Create Task"/>
+                                <Button Command="{Binding DeleteProjectCommand}" Content="Delete Task"/>
+                                <Button Command="{Binding SaveChangesCommand}" Content="Save Task"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">
                                     <StackPanel>
@@ -247,22 +247,22 @@
 
                                         <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                             <TextBlock.Text>
-                                                1. To add a new project, click the "Create project" button;
+                                                1. To add a new task, click the "Create task" button;
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                             <TextBlock.Text>
-                                                2. To delete a project, click the "Delete project" button;
+                                                2. To delete a task, click the "Delete task" button;
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                             <TextBlock.Text>
-                                                3. To change project data, double-click on the required field and change the data;
+                                                3. To change task data, double-click on the required field and change the data;
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <TextBlock TextWrapping="Wrap" Height="Auto" HorizontalAlignment="Stretch">
                                             <TextBlock.Text>
-                                                4. To save data, click the "Save project" button.
+                                                4. To save data, click the "Save task" button.
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </StackPanel>

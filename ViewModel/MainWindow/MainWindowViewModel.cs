@@ -8,6 +8,7 @@ using TaskManager.Model.ProjectModel;
 using TaskManager.Model.UserModel;
 using TaskManager.View.ModalWindows;
 using TaskManager.ViewModel.Services.ProjectService;
+using TaskManager.ViewModel.Services.TaskService;
 
 namespace TaskManager.ViewModel.MainWindow;
 
@@ -15,14 +16,18 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 {
     private readonly ApplicationContext.ApplicationContext _context = new ApplicationContext.ApplicationContext();
     private readonly ProjectService _projectService;
+    private readonly TaskService _taskService;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Model.TaskModel.Task> TasksData { get; set; }
     public ObservableCollection<User> UsersData { get; set; }
     public ProjectService ProjectService
     {
         get => _projectService;
+    }
+    public TaskService TaskService
+    {
+        get => _taskService;
     }
 
     public ICommand CloseCommand { get; set; }
@@ -32,14 +37,11 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 
     public MainWindowViewModel()
     {
-        TasksData = [];
         UsersData = [];
 
         if (_context is not null)
         {
-            _context.Tasks.Load();
             _context.Users.Load();
-            TasksData = _context.Tasks.Local.ToObservableCollection();
             UsersData = _context.Users.Local.ToObservableCollection();
         }
         else if (_context is null)
@@ -48,6 +50,7 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
         }
 
         _projectService = new ProjectService(_context);
+        _taskService = new TaskService(_context);
 
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
         CreateProjectCommand = new RelayCommand.RelayCommand(o => _projectService.CreateProject());

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.CodeDom;
 using System.Collections.ObjectModel;
 using System.Windows;
 using TaskManager.Model.ProjectModel;
