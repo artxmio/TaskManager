@@ -5,30 +5,24 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using TaskManager.Model.ProjectModel;
+using TaskManager.Model.UserModel;
 using TaskManager.View.ModalWindows;
+using TaskManager.ViewModel.Services.ProjectService;
 
 namespace TaskManager.ViewModel.MainWindow;
 
 public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 {
     private readonly ApplicationContext.ApplicationContext _context = new ApplicationContext.ApplicationContext();
-    private bool _isProjectChanged;
+    private readonly ProjectService _projectService;
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Project> Data { get; set; }
-    public Project? SelectedProject { get; set; }
-    public bool IsProjectChanged
+    public ObservableCollection<Model.TaskModel.Task> TasksData { get; set; }
+    public ObservableCollection<User> UsersData { get; set; }
+    public ProjectService ProjectService
     {
-        get => _isProjectChanged;
-        set
-        {
-            if (_isProjectChanged != value)
-            {
-                _isProjectChanged = value;
-                OnPropertyChanged();
-            }
-        }
+        get => _projectService;
     }
 
     public ICommand CloseCommand { get; set; }
@@ -38,58 +32,30 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 
     public MainWindowViewModel()
     {
-        Data = new ObservableCollection<Project>();
-        IsProjectChanged = false;
-
-        CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
-        CreateProjectCommand = new RelayCommand.RelayCommand(o => CreateProject());
-        DeleteProjectCommand = new RelayCommand.RelayCommand(o => DeleteProject());
-        SaveChangesCommand = new RelayCommand.RelayCommand(o => SaveProjectChanges());
+        TasksData = [];
+        UsersData = [];
 
         if (_context is not null)
         {
-            _context.Projects.Load();
-            Data = _context.Projects.Local.ToObservableCollection();
+            _context.Tasks.Load();
+            _context.Users.Load();
+            TasksData = _context.Tasks.Local.ToObservableCollection();
+            UsersData = _context.Users.Local.ToObservableCollection();
         }
-    }
-
-    private void CreateProject()
-    {
-        var viewModel = new CreateProjectViewModel.CreateProjectViewModel();
-        var createProjectWindow = new CreateProjectWindow(viewModel);
-
-        createProjectWindow.ShowDialog();
-
-        var dialogResult = viewModel.DialogResult;
-
-        if (dialogResult)
+        else if (_context is null)
         {
-            _context.Projects.Add(viewModel.NewProject);
-            IsProjectChanged = true;
+            throw new NullReferenceException();
         }
+
+        _projectService = new ProjectService(_context);
+
+        CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
+        CreateProjectCommand = new RelayCommand.RelayCommand(o => _projectService.CreateProject());
+        DeleteProjectCommand = new RelayCommand.RelayCommand(o => _projectService.DeleteProject());
+        SaveChangesCommand = new RelayCommand.RelayCommand(o => _projectService.SaveProjectChanges());
     }
 
-    private void DeleteProject()
-    {
-        if (SelectedProject is not null)
-        {
-            _context.Projects.Remove(SelectedProject);
-            IsProjectChanged = true;
-        }
-        else
-        {
-            MessageBox.Show("Please, select a project", "Error", MessageBoxButton.OK);
-        }
-    }
-
-    private void SaveProjectChanges()
-    {
-        _context.SaveChanges();
-        IsProjectChanged = false;
-        MessageBox.Show("Changes was saved", "Success", MessageBoxButton.OK);
-    }
-
-    private void CloseWindow(Window window)
+    private static void CloseWindow(Window window)
     {
         var result = MessageBox.Show("Are you sure you want to exit?", "Attention", MessageBoxButton.YesNo);
 
