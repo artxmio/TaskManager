@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.ViewModel.CreateUserViewModel;
-namespace TaskManager.View.ModalWindows;
+namespace TaskManager.View.ModalWindows.NewUser;
 
 public partial class CreateUserWindow : Window
 {

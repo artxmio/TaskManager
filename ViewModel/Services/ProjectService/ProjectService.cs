@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using TaskManager.Model;
 using TaskManager.Model.ProjectModel;
-using TaskManager.View.ModalWindows;
+using TaskManager.View.ModalWindows.NewProject;
 
 namespace TaskManager.ViewModel.Services.ProjectService;
 

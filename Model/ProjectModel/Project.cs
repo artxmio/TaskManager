@@ -4,85 +4,33 @@ using TaskManager.Model.TaskModel;
 
 namespace TaskManager.Model.ProjectModel;
 
-public class Project : INotifyPropertyChanged, IEntityModel
+public class Project : IEntityModel
 {
-    private int _projectId;
-    private string _title;
-    private string _description;
-    private int _countParticipants;
-    private bool _isComplete;
-
     public int ProjectId
     {
-        get { return _projectId; }
-        set
-        {
-            if (_projectId != value)
-            {
-                _projectId = value;
-                OnPropertyChanged(nameof(ProjectId));
-            }
-        }
+        get;
+        set;
     }
-
     public string Title
     {
-        get { return _title; }
-        set
-        {
-            if (_title != value)
-            {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
+        get;
+        set;
     }
-
     public string Description
     {
-        get { return _description; }
-        set
-        {
-            if (_description != value)
-            {
-                _description = value;
-                OnPropertyChanged(nameof(Description));
-            }
-        }
+        get;
+        set;
     }
-
     public int CountParticipants
     {
-        get { return _countParticipants; }
-        set
-        {
-            if (_countParticipants != value)
-            {
-                _countParticipants = value;
-                OnPropertyChanged(nameof(CountParticipants));
-            }
-        }
+        get;
+        set;
     }
-
     public bool IsComplete
     {
-        get { return _isComplete; }
-        set
-        {
-            if (_isComplete != value)
-            {
-                _isComplete = value;
-                OnPropertyChanged(nameof(IsComplete));
-            }
-        }
+        get;
+        set;
     }
 
     public virtual ICollection<Model.TaskModel.Task> Tasks { get ; set; }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 }

@@ -29,6 +29,7 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     {
         get => _userService;
     }
+    
     public ICommand CloseCommand { get; set; }
 
     public ICommand CreateProjectCommand { get; set; }

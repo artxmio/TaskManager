@@ -2,9 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using TaskManager.Model;
-using TaskManager.Model.ProjectModel;
 using TaskManager.Model.UserModel;
-using TaskManager.View.ModalWindows;
+using TaskManager.View.ModalWindows.NewUser;
 
 namespace TaskManager.ViewModel.Services.UserService;
 
@@ -40,6 +39,7 @@ public class UserService : BaseService.BaseService
         if (Selected is not null)
         {
             _context.Users.Remove((User)Selected);
+            Data.Remove((User)Selected);
         }
         else
         {

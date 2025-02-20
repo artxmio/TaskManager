@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using TaskManager.ViewModel.CreateProjectViewModel;
-namespace TaskManager.View.ModalWindows;
+namespace TaskManager.View.ModalWindows.NewProject;
 
 public partial class CreateProjectWindow : Window
 {
