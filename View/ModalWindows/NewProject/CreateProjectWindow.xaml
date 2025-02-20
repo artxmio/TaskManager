@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TaskManager.View.ModalWindows"
         xmlns:vm="clr-namespace:TaskManager.ViewModel.CreateProjectViewModel" 
         mc:Ignorable="d"
         Title="CreateProjectWindow" Height="505" Width="400"
@@ -26,7 +25,8 @@
             FontWeight="SemiBold"
             FontFamily="Outfit"
             FontSize="30"
-            Margin="60,19,0,2"/>
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"/>
 
         <TextBlock 
             FontWeight="SemiBold"

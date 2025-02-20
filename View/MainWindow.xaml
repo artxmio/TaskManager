@@ -236,8 +236,8 @@
 
                             <StackPanel>
 
-                                <Button Command="{Binding CreateProjectCommand}" Content="Create Task"/>
-                                <Button Command="{Binding DeleteProjectCommand}" Content="Delete Task"/>
+                                <Button Command="{Binding CreateTaskCommand}" Content="Create Task"/>
+                                <Button Command="{Binding DeleteTaskCommand}" Content="Delete Task"/>
                                 <Button Command="{Binding SaveChangesCommand}" Content="Save Task"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">

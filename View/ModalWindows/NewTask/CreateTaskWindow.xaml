@@ -1,15 +1,16 @@
-﻿<Window x:Class="TaskManager.View.ModalWindows.NewUser.CreateUserWindow"
+﻿<Window x:Class="TaskManager.View.ModalWindows.NewTask.CreateTaskWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:TaskManager.ViewModel.CreateUserViewModel"
+        xmlns:vm="clr-namespace:TaskManager.ViewModel.CreateTaskViewModel"
         mc:Ignorable="d"
-        Title="CreateUserWindow" Height="300" Width="400"
+        Title="CreateTaskWindow"
+        Height="370" Width="400"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
-        d:DataContext="{d:DesignInstance vm:CreateUserViewModel}">
+        d:DataContext="{d:DesignInstance vm:CreateTaskViewModel}">
     <Grid>
         <Grid>
 
@@ -17,10 +18,11 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="70"/>
+                <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
             <TextBlock 
-                Text="Create a new user"
+                Text="Create a new task"
                 FontWeight="SemiBold"
                 FontFamily="Outfit"
                 FontSize="30"
@@ -29,36 +31,57 @@
 
             <TextBlock 
                 FontWeight="SemiBold"
-                Text="Login:" 
+                Text="Title:" 
                 FontFamily="Outfit"
                 FontSize="15"
                 Margin="20,8,125,43" 
                 Grid.Row="1"/>
 
             <TextBox
-                Text="{Binding NewUser.Login}"
+                Text="{Binding NewTask.Title}"
                 VerticalAlignment="Center"
                 FontSize="15"
                 MaxLength="25"
-                Grid.Row="1" Margin="20,30,20,10"/>
+                Grid.Row="1"
+                Margin="20,30,20,10"/>
 
             <TextBlock 
                 Margin="20,8,125,43" 
                 FontWeight="SemiBold"
-                Text="Password:" 
+                Text="Project:" 
                 FontFamily="Outfit"
                 FontSize="15"
                 Grid.Row="2"/>
 
-            <TextBox
-                Text="{Binding NewUser.Password}"
+            <ComboBox
+                ItemsSource="{Binding Projects}"
+                DisplayMemberPath="Title" 
+                SelectedItem="{Binding SelectedProject}"
                 VerticalAlignment="Center"
-                FontSize="15"
-                MaxLength="25"
+                HorizontalAlignment="Center" 
                 Grid.Row="2" 
-                Margin="20,30,20,10"/>
+                Width="345"
+                Margin="10,30,10,10"/>
+
+            <TextBlock 
+                FontWeight="SemiBold"
+                Text="Assignee user:" 
+                FontFamily="Outfit"
+                FontSize="15"
+                Margin="20,8,125,43" 
+                Grid.Row="3"/>
+
+            <ComboBox
+                ItemsSource="{Binding Users}"
+                DisplayMemberPath="Login" 
+                SelectedItem="{Binding SelectedUser}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" 
+                Grid.Row="3" 
+                Width="345"
+                Margin="10,30,10,10"/>
             
-            <Button Command="{Binding CreateUserCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="OK" Grid.Row="3" Margin="20,80,200,-45"/>
+            <Button Command="{Binding CreateTaskCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="OK" Grid.Row="3" Margin="20,80,200,-45"/>
             <Button Command="{Binding CloseWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Content="Cancel" Grid.Row="3" Margin="210,80,10,-45"/>
 
         </Grid>

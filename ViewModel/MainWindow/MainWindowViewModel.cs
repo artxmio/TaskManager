@@ -38,6 +38,9 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     public ICommand CreateUserCommand { get; set; }
     public ICommand DeleteUserCommand { get; set; }
 
+    public ICommand CreateTaskCommand { get; set; }
+    public ICommand DeleteTaskCommand { get; set; }
+
     public ICommand SaveChangesCommand { get; set; }
     
     public MainWindowViewModel()
@@ -53,6 +56,9 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 
         CreateUserCommand = new RelayCommand.RelayCommand(o => _userService.Add());
         DeleteUserCommand = new RelayCommand.RelayCommand(o => _userService.Delete());
+
+        CreateTaskCommand = new RelayCommand.RelayCommand(o => _taskService.Add());
+        DeleteTaskCommand = new RelayCommand.RelayCommand(o => _taskService.Delete());
 
         SaveChangesCommand = new RelayCommand.RelayCommand(o => _projectService.Save());
     }

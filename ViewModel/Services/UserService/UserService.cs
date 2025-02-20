@@ -31,6 +31,7 @@ public class UserService : BaseService.BaseService
         if (dialogResult)
         {
             _context.Users.Add(viewModel.NewUser);
+            Data.Add(viewModel.NewUser);
         }
     }
 

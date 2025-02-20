@@ -32,6 +32,7 @@ public class ProjectService : BaseService.BaseService
         if (dialogResult)
         {
             _context.Projects.Add(viewModel.NewProject);
+            Data.Add(viewModel.NewProject);
         }
     }
 
