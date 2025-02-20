@@ -19,10 +19,4 @@ public abstract class BaseService
 
     public abstract void Add();
     public abstract void Delete();
-
-    public virtual void Save()
-    {
-        _context.SaveChanges();
-        MessageBox.Show("Changes was saved", "Success", MessageBoxButton.OK);
-    }
 }

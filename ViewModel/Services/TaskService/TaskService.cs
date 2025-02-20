@@ -4,24 +4,34 @@ using System.Windows;
 using TaskManager.Model;
 using TaskManager.Model.ProjectModel;
 using TaskManager.View.ModalWindows.NewTask;
+using TaskManager.ViewModel.Services.ProjectService;
+using TaskManager.ViewModel.Services.UserService;
 
 namespace TaskManager.ViewModel.Services.TaskService;
 
 public class TaskService : BaseService.BaseService
 {
-    public TaskService(ApplicationContext.ApplicationContext context) : base(context)
+    private readonly ProjectService.ProjectService _projectService;
+    private readonly UserService.UserService _userService;
+
+    public TaskService(
+        ApplicationContext.ApplicationContext context, 
+        ProjectService.ProjectService projectService, 
+        UserService.UserService userService) : base(context)
     {
         if (context is not null)
         {
             _context.Tasks.Load();
             Data = new ObservableCollection<IEntityModel>(context.Tasks.Local.Cast<IEntityModel>());
         }
+        _projectService = projectService;
+        _userService = userService;
     }
 
     public override void Add()
     {
-        var projects = new ObservableCollection<IEntityModel>(_context.Projects.Local.ToObservableCollection().Cast<IEntityModel>());
-        var users = new ObservableCollection<IEntityModel>(_context.Users.Local.ToObservableCollection().Cast<IEntityModel>());
+        var projects = _projectService.Data;
+        var users = _userService.Data;
 
         var viewModel = new CreateTaskViewModel.CreateTaskViewModel(projects, users);
         var createProjectWindow = new CreateTaskWindow(viewModel);
@@ -34,6 +44,7 @@ public class TaskService : BaseService.BaseService
         {
             _context.Tasks.Add(viewModel.NewTask);
             Data.Add(viewModel.NewTask);
+            _context.SaveChanges();
         }
     }
 
@@ -43,6 +54,7 @@ public class TaskService : BaseService.BaseService
         {
             _context.Tasks.Remove((Model.TaskModel.Task)Selected);
             Data.Remove((Model.TaskModel.Task)Selected);
+            _context.SaveChanges();
         }
         else
         {

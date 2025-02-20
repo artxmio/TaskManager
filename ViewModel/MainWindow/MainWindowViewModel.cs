@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using TaskManager.Model.ProjectModel;
 using TaskManager.ViewModel.Services.ProjectService;
 using TaskManager.ViewModel.Services.TaskService;
 using TaskManager.ViewModel.Services.UserService;
@@ -15,8 +17,6 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     private readonly TaskService _taskService;
     private readonly UserService _userService;
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
     public ProjectService ProjectService
     {
         get => _projectService;
@@ -29,7 +29,7 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     {
         get => _userService;
     }
-    
+
     public ICommand CloseCommand { get; set; }
 
     public ICommand CreateProjectCommand { get; set; }
@@ -42,12 +42,12 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
     public ICommand DeleteTaskCommand { get; set; }
 
     public ICommand SaveChangesCommand { get; set; }
-    
+
     public MainWindowViewModel()
     {
-        _projectService = new ProjectService(_context);
-        _taskService = new TaskService(_context);
+        _projectService = new ProjectService(_context, TaskService);
         _userService = new UserService(_context);
+        _taskService = new TaskService(_context, ProjectService, UserService);
 
         CloseCommand = new RelayCommand.RelayCommand(o => CloseWindow((Window)o));
 
@@ -59,8 +59,6 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
 
         CreateTaskCommand = new RelayCommand.RelayCommand(o => _taskService.Add());
         DeleteTaskCommand = new RelayCommand.RelayCommand(o => _taskService.Delete());
-
-        SaveChangesCommand = new RelayCommand.RelayCommand(o => _projectService.Save());
     }
 
     private static void CloseWindow(Window window)
@@ -72,6 +70,8 @@ public class MainWindowViewModel : IMainWindowViewModel, INotifyPropertyChanged
             window?.Close();
         }
     }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {

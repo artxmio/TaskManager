@@ -36,7 +36,7 @@
     <Grid>
 
         <TabControl Grid.ColumnSpan="4">
-            <TabItem Header="Projects">
+            <TabItem Header="Projects" Width="75">
                 <Grid>
                     
                     <Grid.ColumnDefinitions>
@@ -111,7 +111,6 @@
 
                                 <Button Command="{Binding CreateProjectCommand}" Content="Create Project"/>
                                 <Button Command="{Binding DeleteProjectCommand}" Content="Delete Project"/>
-                                <Button Command="{Binding SaveChangesCommand}" Content="Save Project"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">
                                     <StackPanel>
@@ -150,8 +149,8 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            
-            <TabItem Header="Tasks">
+
+            <TabItem Header="Tasks" Width="75">
                 <Grid>
 
                     <Grid.ColumnDefinitions>
@@ -238,7 +237,6 @@
 
                                 <Button Command="{Binding CreateTaskCommand}" Content="Create Task"/>
                                 <Button Command="{Binding DeleteTaskCommand}" Content="Delete Task"/>
-                                <Button Command="{Binding SaveChangesCommand}" Content="Save Task"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">
                                     <StackPanel>
@@ -278,7 +276,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Users">
+            <TabItem Header="Users" Width="75">
                 <Grid>
 
                     <Grid.ColumnDefinitions>
@@ -353,7 +351,6 @@
 
                                 <Button Command="{Binding CreateUserCommand}" Content="Create User"/>
                                 <Button Command="{Binding DeleteUserCommand}" Content="Delete User"/>
-                                <Button Command="{Binding SaveChangesCommand}" Content="Save User"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">
                                     <StackPanel>

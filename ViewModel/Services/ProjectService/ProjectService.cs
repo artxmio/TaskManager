@@ -9,7 +9,9 @@ namespace TaskManager.ViewModel.Services.ProjectService;
 
 public class ProjectService : BaseService.BaseService
 {
-    public ProjectService(ApplicationContext.ApplicationContext context) : base(context)
+    private readonly TaskService.TaskService _taskService;
+
+    public ProjectService(ApplicationContext.ApplicationContext context, TaskService.TaskService taskService) : base(context)
     {
         if (context is not null)
         {
@@ -17,7 +19,7 @@ public class ProjectService : BaseService.BaseService
             Data = new ObservableCollection<IEntityModel>(context.Projects.Local.Cast<IEntityModel>());
         }
 
-        Selected = new Project();
+        _taskService = taskService;
     }
 
     public override void Add()
@@ -33,6 +35,7 @@ public class ProjectService : BaseService.BaseService
         {
             _context.Projects.Add(viewModel.NewProject);
             Data.Add(viewModel.NewProject);
+            _context.SaveChanges();
         }
     }
 
@@ -42,6 +45,7 @@ public class ProjectService : BaseService.BaseService
         {
             _context.Projects.Remove((Project)Selected);
             Data.Remove((Project)Selected);
+            _context.SaveChanges();
         }
         else
         {

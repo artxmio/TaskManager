@@ -20,9 +20,10 @@ namespace TaskManager.ViewModel.ApplicationContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Model.TaskModel.Task>()
-                .HasOne(t => t.Project)
-                .WithMany(p => p.Tasks)
-                .HasForeignKey(t => t.ProjectId);
+                 .HasOne(t => t.Project)
+                 .WithMany(p => p.Tasks)
+                 .HasForeignKey(t => t.ProjectId)
+                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Model.TaskModel.Task>()
                 .HasOne(t => t.User)

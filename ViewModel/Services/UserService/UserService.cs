@@ -16,7 +16,6 @@ public class UserService : BaseService.BaseService
             _context.Users.Load();
             Data = new ObservableCollection<IEntityModel>(_context.Users.Local.Cast<IEntityModel>());
         }
-        Selected = new User();
     }
 
     public override void Add()
@@ -32,6 +31,7 @@ public class UserService : BaseService.BaseService
         {
             _context.Users.Add(viewModel.NewUser);
             Data.Add(viewModel.NewUser);
+            _context.SaveChanges();
         }
     }
 
@@ -41,6 +41,7 @@ public class UserService : BaseService.BaseService
         {
             _context.Users.Remove((User)Selected);
             Data.Remove((User)Selected);
+            _context.SaveChanges();
         }
         else
         {
