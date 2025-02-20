@@ -55,7 +55,7 @@
                         Grid.RowSpan="2"
                         Grid.ColumnSpan="2"  
                         SelectedItem="{Binding ProjectService.Selected}"
-                        ItemsSource="{Binding ProjectService.Data}"
+                        ItemsSource="{Binding ProjectService.Data, UpdateSourceTrigger=PropertyChanged}"
                         Margin="10"
                         AutoGenerateColumns="False"
     

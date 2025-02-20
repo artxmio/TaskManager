@@ -40,6 +40,7 @@ public class ProjectService : BaseService.BaseService
         if (Selected is not null)
         {
             _context.Projects.Remove((Project)Selected);
+            Data.Remove((Project)Selected);
         }
         else
         {
