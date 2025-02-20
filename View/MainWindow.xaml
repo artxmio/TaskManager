@@ -309,44 +309,32 @@
                         >
 
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Title" Width="0.2*">
+                            <DataGridTemplateColumn Header="Login" Width="0.2*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" />
+                                        <TextBlock Text="{Binding Login}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" MaxLength="25" />
+                                        <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" MaxLength="25" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="ProjectID" Width="0.5*">
+                            <DataGridTemplateColumn Header="Password" Width="0.5*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Project.Title}" />
+                                        <TextBlock Text="{Binding Password}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Project.Title, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
+                                        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellEditingTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="AssigneeUserID" Width="0.5*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding User.Login}" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                                <DataGridTemplateColumn.CellEditingTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding User.Login, UpdateSourceTrigger=PropertyChanged}" MaxLength="200" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellEditingTemplate>
-                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
 
                     </DataGrid>
@@ -363,8 +351,8 @@
 
                             <StackPanel>
 
-                                <Button Command="{Binding CreateProjectCommand}" Content="Create User"/>
-                                <Button Command="{Binding DeleteProjectCommand}" Content="Delete User"/>
+                                <Button Command="{Binding CreateUserCommand}" Content="Create User"/>
+                                <Button Command="{Binding DeleteUserCommand}" Content="Delete User"/>
                                 <Button Command="{Binding SaveChangesCommand}" Content="Save User"/>
 
                                 <Border Margin="0 30 0 0"  BorderBrush="Black" BorderThickness="0.5" CornerRadius="10" Padding="10">
